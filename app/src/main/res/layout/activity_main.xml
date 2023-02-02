@@ -281,7 +281,7 @@
                     android:layout_weight="1"
                     android:layout_margin="7dp"
                     android:text="del"
-                    android:textSize="25dp"
+                    android:textSize="23sp"
                     app:cornerRadius="30px"
                     android:backgroundTint="#454343" />
 

@@ -90,10 +90,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
-//        ochir.setOnClickListener {
-//            misol.text = misol.text.dropLast(1).toString()
-//            hisobla()
-//        }
+        ochir.setOnClickListener {
+            misol.text = misol.text.dropLast(1).toString()
+            hisobla(misol.text.toString())
+        }
     }
 
     fun itemKirit(){
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             misol.text = misol.text.toString() + btn.text.toString()
         }
 
-        javob.setText(hisobla())
+        javob.setText(hisobla(misol.text.toString()))
     }
 
     fun belgibos(belgi:String){
@@ -167,17 +167,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    fun hisobla():String{
-        var ajratilgan = massivgaAjrat(misol.text.toString()+ "+0")
+    fun hisobla(misol:String):String{
+        var ty = misol.toCharArray()
+        var op = misol
+        if (ty[0] =='-'){
+            op = "0$op"
+        }else{
+            op = "0+$op"
+        }
+
+
+
+        var ajratilgan = massivgaAjrat(op)
         var kopBolingan = kopBolHisobla(ajratilgan)
-        var javob = plusMinusHisobla(kopBolingan).toString()
-        return javob
+        var javob = plusMinusHisobla(kopBolingan)
+
+
+        return butunmi(javob)
     }
 
     fun kopBolHisobla(l: MutableList<Any>): MutableList<Any>{
         var list = l
         var i = 0
-
 
         while (list.contains('X')||list.contains('/')){
             if (list[i]=='X' || list[i]=='/'){
@@ -200,11 +211,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 i -= 2
             }
             i++
-
-//            list.add(i+1,"+")
-//            list.add(i+2,0f)
-
-
         }
         return list
     }
@@ -237,5 +243,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         return javob
 
+    }
+
+    fun butunmi(son : Float):String{
+        var a = ""
+
+
+        if (son%1==0f){
+            a = son.toString().dropLast(2)
+        }else{
+            a = son.toString()
+        }
+
+        return a
     }
 }
