@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var toza: Button
     private lateinit var teng: Button
     private lateinit var nuqta: Button
+    private lateinit var foiz: Button
 
     private lateinit var misol: TextView
     private lateinit var javob: TextView
@@ -91,8 +92,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         ochir.setOnClickListener {
-            misol.text = misol.text.dropLast(1).toString()
+
+            if (misol.text.toString().length==1){
+                misol.text = "0"
+                javob.text = "0"
+            }else{
+                misol.text = misol.text.dropLast(1).toString()
+            }
             hisobla(misol.text.toString())
+        }
+
+        foiz.setOnClickListener {
+            var a = misol.text.toString()+"/100"
+            hisobla(a)
+            //javob.text = a
         }
     }
 
@@ -118,6 +131,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         nuqta = findViewById(R.id.nuqta)
         teng = findViewById(R.id.teng)
         ochir = findViewById(R.id.ochir)
+        foiz = findViewById(R.id.foiz)
     }
 
     override fun onClick(p0: View?) {
@@ -176,7 +190,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             op = "0+$op"
         }
 
-
+        if (ty[ty.size-1]=='+' || ty[ty.size-1] == '-' ){
+            op += "0"
+        }else if (ty[ty.size-1]=='X' || ty[ty.size-1]=='/'){
+            op += "1"
+        }
 
         var ajratilgan = massivgaAjrat(op)
         var kopBolingan = kopBolHisobla(ajratilgan)
@@ -240,21 +258,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             i++
         }
-
         return javob
-
     }
-
     fun butunmi(son : Float):String{
         var a = ""
-
 
         if (son%1==0f){
             a = son.toString().dropLast(2)
         }else{
             a = son.toString()
         }
-
         return a
     }
 }
